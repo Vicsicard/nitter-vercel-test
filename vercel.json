@@ -3,6 +3,16 @@
     "api/scrape.js": {
       "memory": 1024,
       "maxDuration": 10
+    },
+    "api/collect.js": {
+      "memory": 1024,
+      "maxDuration": 60
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/collect",
+      "schedule": "0 */90 * * *"
+    }
+  ]
 }

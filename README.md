@@ -1,30 +1,61 @@
-# Nitter Vercel Test
+# Nitter Vercel Scraper
 
-This is a minimal test app to verify that Vercel can access Nitter instances without being blocked.
+Production-ready Nitter scraper that collects tweets and sends them to Cloudflare Worker for processing.
 
-## Purpose
+## Features
 
-Before building the full Twitter Reply Bot Engine with Vercel as the collection layer, we need to confirm:
-- ✅ Vercel IPs are not blocked by Nitter
-- ✅ We can successfully scrape tweets
-- ✅ The hybrid architecture will work
+- ✅ Scrapes 2 hashtags every 90 minutes (1.5 hours)
+- ✅ 30-second delay between requests to avoid rate limiting
+- ✅ 24-hour freshness filter (only recent tweets)
+- ✅ Rotates between working Nitter instances
+- ✅ Sends tweets to Cloudflare Worker via secure API
+- ✅ Hashtag performance tracking
 
-## How to Deploy
+## Setup
 
-1. **Install Vercel CLI** (if not already installed):
-   ```bash
-   npm install -g vercel
-   ```
+### 1. Set Environment Variables in Vercel
 
-2. **Deploy**:
-   ```bash
-   vercel deploy
-   ```
+Go to your Vercel project settings and add:
 
-3. **Test the endpoint**:
-   ```
-   https://YOUR-DEPLOYMENT.vercel.app/api/scrape?q=flight+delay
-   ```
+```
+CLOUDFLARE_WORKER_URL=https://twitter-reply-engine.vicsicard.workers.dev
+COLLECTOR_API_KEY=tw-collector-nitter-vercel-2025-a7b9c3d5e8f1
+```
+
+### 2. Deploy
+
+```bash
+git push origin main
+```
+
+Vercel will auto-deploy from GitHub.
+
+### 3. Enable CRON
+
+In Vercel dashboard:
+- Go to your project
+- Settings → Crons
+- Verify the CRON is enabled: `0 */90 * * *` (every 90 minutes)
+
+## Endpoints
+
+### `/api/collect` (Production)
+Runs automatically every 90 minutes via CRON.
+- Scrapes 2 random hashtags
+- Sends tweets to Cloudflare Worker
+- Returns collection stats
+
+### `/api/scrape` (Test)
+Manual test endpoint:
+```
+https://nitter-vercel-test.vercel.app/api/scrape?q=airport
+```
+
+### `/api/stress-test` (Test)
+Test rate limiting:
+```
+https://nitter-vercel-test.vercel.app/api/stress-test?iterations=5
+```
 
 ## Expected Response
 
