@@ -5,9 +5,12 @@
  */
 
 // Working Nitter instances (rotate for reliability)
+// Updated from https://status.d420.de - Nov 13, 2025
 const NITTER_INSTANCES = [
-  "https://nitter.weiler.rocks",
-  "https://nitter.cz"
+  "https://nitter.net",
+  "https://nitter.poast.org",
+  "https://xcancel.com",
+  "https://nitter.privacyredirect.com"
 ];
 
 // Hashtags to monitor (airport/travel related)
