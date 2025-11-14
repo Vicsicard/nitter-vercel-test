@@ -5,12 +5,10 @@
  */
 
 // Working Nitter instances (rotate for reliability)
-// Updated from https://status.d420.de - Nov 13, 2025
+// Tested and verified working - Nov 13, 2025 7:12pm
 const NITTER_INSTANCES = [
-  "https://nitter.net",
-  "https://nitter.poast.org",
-  "https://xcancel.com",
-  "https://nitter.privacyredirect.com"
+  "https://nitter.tiekoetter.com",
+  "https://nitter.net"
 ];
 
 // Hashtags to monitor (airport/travel related)
